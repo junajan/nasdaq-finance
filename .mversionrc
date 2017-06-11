@@ -1,0 +1,9 @@
+{
+  "commitMessage": "Upgrade to version v%s",
+  "tagName": "v%s",
+  "scripts": {
+    "preupdate": "npm run clean && npm test",
+    "postcommit": "git push && git push --tags",
+    "postupdate": "npm release && echo 'New version v%s tagged and released'"
+  }
+}
