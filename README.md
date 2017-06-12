@@ -1,5 +1,4 @@
-# Nasdaq Finance
-
+# Nasdaq Finance [![Build Status](https://travis-ci.org/junajan/nasdaq-finance.svg)](https://travis-ci.org/junajan/nasdaq-finance)
 This tool will help to download informations like an actual price, stock info or daily tick prices and volumes for a given ticker(s).
 
 ## Install
