@@ -4,6 +4,6 @@
   "scripts": {
     "preupdate": "npm run clean && npm test",
     "postcommit": "git push && git push --tags",
-    "postupdate": "npm release && echo 'New version v%s tagged and released'"
+    "postupdate": "npm publish && echo 'New version v%s tagged and released'"
   }
 }
