@@ -57,6 +57,21 @@ describe('NasdaqFinance', () => {
       });
   });
 
+  it('should do multiple calls for given tickers and objectize result', () => {
+    const tickers = 'AAPL,TSLA,JNJ'.split(',');
+    const stub = sinon.stub().returns(Promise.resolve(true));
+
+    return nasdaqFinance._doMultipleCalls(tickers, stub, true)
+      .then((res) => {
+        expect(res).to.be.an('object');
+        expect(res).to.deep.equal({
+          AAPL: true,
+          TSLA: true,
+          JNJ: true
+        });
+      });
+  });
+
   it('should call multiple times processing functions', () => {
     const stubs = {};
 

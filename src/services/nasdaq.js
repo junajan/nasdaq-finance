@@ -2,15 +2,21 @@ import _ from 'lodash';
 import request from 'request-promise';
 import Promise from 'bluebird';
 import cheerio from 'cheerio';
+import bunyan from 'bunyan';
 
 export default class Nasdaq {
-  constructor(config) {
+  constructor(config, logger) {
     this.config = _.defaults(config, {
       requestConcurrency: 4,
       requestDelay: 0
     });
 
+    this.logger = logger || bunyan.createLogger({ name: 'Nasdaq' });
     this.request = request;
+  }
+
+  _getPageId(section, page = 0) {
+    return section * 100000 + page;
   }
 
   _getDataUrl(ticker) {
@@ -75,10 +81,10 @@ export default class Nasdaq {
       const cells = cheerio(row);
       const tick = {
         time: _.trim(cells.find('td:nth-child(1)').text()),
-        price: _.trim(
+        price: Number(_.trim(
           cells.find('td:nth-child(2)').text().replace('$', '')
-        ),
-        volume: cells.find('td:nth-child(3)').text()
+        )),
+        volume: Number(cells.find('td:nth-child(3)').text())
       };
       ticks.push(tick);
     });
@@ -100,7 +106,7 @@ export default class Nasdaq {
     if (scheduler.lastValidPageId < pageId)
       return Promise.resolve([]);
 
-    console.log(
+    this.logger.debug(
       'Downloading %s - section %d - page %d',
       ticker,
       sectionNumber,
@@ -130,7 +136,7 @@ export default class Nasdaq {
         const range = _.range(2, lastPage + 1);
         ticks.push(this._parseTicks($));
 
-        if (ticks.length === 0) {
+        if (ticks[0].length === 0) {
           scheduler.lastValidPageId = pageId;
           return Promise.resolve([]);
         }
@@ -142,10 +148,6 @@ export default class Nasdaq {
             data => ticks.push(...data) && _.flatten(ticks.reverse())
           );
       });
-  }
-
-  _getPageId(section, page = 0) {
-    return section * 100000 + page;
   }
 
   getTicks(ticker) {

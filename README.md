@@ -11,6 +11,10 @@ $ npm install --save nasdaq-finance
 `NasdaqFinance` class takes one argument with a configuration object containing these values:
 ```js
 {
+  logLevel: 'info',
+  tickerConcurrency: 4,
+  requestConcurrency: 4,
+  requestDelay: 50
 }
 ```
 

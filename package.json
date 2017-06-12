@@ -41,6 +41,7 @@
   ],
   "dependencies": {
     "bluebird": "^3.5.0",
+    "bunyan": "^1.8.10",
     "cheerio": "^1.0.0-rc.1",
     "cheerio-tableparser": "^1.0.1",
     "lodash": "^4.17.4",

@@ -1,13 +1,19 @@
 import _ from 'lodash';
 import Promise from 'bluebird';
+import bunyan from 'bunyan';
 import Nasdaq from './services/nasdaq';
 
 export default class NasdaqFinance {
-  constructor(config) {
+  constructor(config, logger) {
     this.config = _.defaults({}, config, NasdaqFinance._getDefaultConfig());
+    this.logger = logger || bunyan.createLogger({
+      name: 'Nasdaq',
+      level: this.config.logLevel
+    });
+
     this.api = new Nasdaq(_.pick(
       config, ['requestConcurrency', 'requestDelay']
-    ));
+    ), this.logger);
   }
 
   /**
