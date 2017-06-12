@@ -18,7 +18,7 @@ describe('Nasdaq', () => {
         expect(res).to.have.property('priceChange');
         expect(res).to.have.property('priceChangePercent');
       })
-  );
+  , 1000);
 
   it('should get stock price', () =>
     nasdaq.getPrice('TSLA')
@@ -26,5 +26,5 @@ describe('Nasdaq', () => {
         expect(res).to.be.a('number');
         expect(res).to.be.above(0);
       })
-  );
+  , 1000);
 });
