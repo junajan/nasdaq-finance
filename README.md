@@ -51,7 +51,7 @@ Will return a current stock price listed on nasdaq page.
 ```js
 import nf from 'nasdaq-finance'
 const nf = new NasdaqFinance()
-nf.getInfo('TSLA')
+nf.getPrice('TSLA')
 .then((res) => {
 //  res === 357.32
 })
