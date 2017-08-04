@@ -2,4 +2,3 @@ tmp
 .idea
 *.log
 coverage
-dist
