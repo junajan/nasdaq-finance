@@ -1,6 +1,6 @@
 {
   "name": "nasdaq-finance",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Download actual price and daily tick data for given tickers from www.nasdaq.com Edit",
   "main": "dist/index.js",
   "scripts": {
